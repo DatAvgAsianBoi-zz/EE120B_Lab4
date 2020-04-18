@@ -1,7 +1,7 @@
-Breakpoint 1 at 0x29e: file source/main.c, line 55.
+Breakpoint 1 at 0x4b4: file source/main.c, line 117.
 Note: automatically using hardware breakpoints for read-only addresses.
 ======================================================
 Running all tests..."
 
-"No butto pressed => PORTB: 0x01"..."button pressed once => PORTB: 0x02"...======================================================
+"No button pressed => PORTB: 0x00"..."complete sequence => PORTB: 0x01"...======================================================
 Remote doesn't know how to detach

@@ -26,38 +26,48 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 # Add tests below
-test "No button pressed => PORTB: 0x00"
+test "No button pressed => PORTC: 0x07"
 setPINA 0x00
 continue 2
-expectPORTB 0x00
-expect state locked
+expectPORTC 0x07
+expect state inactive
 checkResult
 
-test "complete sequence => PORTB: 0x01"
-setPINA 0x04
+test "incremented once => PORTC: 0x08"
+printPORTC
+setPINA 0x01
 continue 2
-expect button_press 1
-expect buttons_Pressed() 1
-expect state wait
 setPINA 0x00
 continue 2
-expect state locked
-expect button_press 1
-expect buttons_Pressed() 0
+expectPORTC 0x08
+expect state inactive
+checkResult
+
+test "dec once => PORTC: 0x06"
+printPORTC
 setPINA 0x02
 continue 2
-expect button_press 2
-expect buttons_Pressed() 1
-expect state wait
 setPINA 0x00
 continue 2
-expect buttons_Pressed() 0
-expect state unlocked
-expectPORTB 0x01
+expectPORTC 0x06
+expect state inactive
 checkResult
 
-
-
+test "dec once, incremented once => PORTC: 0x06"
+printPORTC
+setPINA 0x02
+continue 2
+setPINA 0x00
+continue 2
+expectPORTC 0x06
+expect state inactive
+setPINA 0x01
+continue 2
+setPINA 0x00
+continue 2
+expectPORTC 0x08
+expect state inactive
+checkResult
 
 
 
