@@ -26,42 +26,89 @@
 echo ======================================================\n
 echo Running all tests..."\n\n
 # Add tests below
+test "No button pressed => PORTB: 0x00"
+setPINA 0x00
+continue 2
+expectPORTB 0x00
+expect state locked
+checkResult
 
-test "PINA: 0x04, 0x00, 0x01, 0x00, 0x02, 0x00, 0x01 => PORTB: 0x01"
+#     test "complete sequence => PORTB: 0x01"
+#     setPINA 0x04
+#     continue 2
+#     expect button_press 1
+#      expect buttons_Pressed() 1
+#      expect state wait
+#      setPINA 0x00
+#      continue 2
+#      expect state locked
+#      expect button_press 1
+#      expect buttons_Pressed() 0
+#      setPINA 0x02
+#      continue 2
+#      expect button_press 2
+#      expect buttons_Pressed() 1
+#      expect state wait
+#      setPINA 0x00
+#      continue 2
+#      expect buttons_Pressed() 0
+#      expect state unlocked
+#      expectPORTB 0x01
+#      checkResult
+
+test " PINA: 0x08 => PORTB: 0x00"
 set state = start
-#expectPORTB 0x00
+expectPORTB 0x00
+setPINA 0x80
+continue 2
+setPINA 0x00
+continue 2
+expectPORTB 0x00
+checkResult
+
+test "PINA: 0x04, 0x00, 0x01 => PORTB: 0x00"
+set state = start
+expectPORTB 0x00
 setPINA 0x04
 continue 2
-
-expect comb[0] 2
-
 setPINA 0x00
 continue 2
 setPINA 0x01
 continue 2
+expectPORTB 0x00
+checkResult
 
-expect comb[1] 0
-expect button_press 2
-
+test "PINA: 0x04, 0x00, 0x02 => PORTB: 0x01"
+set state = start
+expectPORTB 0x00
+setPINA 0x04
+continue 2
 setPINA 0x00
 continue 2
 setPINA 0x02
 continue 2
-
-expect button_press 3
-expect comb[2] 1
-
-setPINA 0x00
-continue 2
-setPINA 0x01
-continue 2
 expectPORTB 0x01
 checkResult
 
-
-
-
-
+test "PINA: 0x04, 0x00, 0x02, 0x00, 0x04, 0x02 => PORTB: 0x00"
+set state = start
+setPINA 0x04
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+expectPORTB 0x01
+setPINA 0x00
+continue 2
+setPINA 0x04
+continue 2
+setPINA 0x00
+continue 2
+setPINA 0x02
+continue 2
+expectPORTB 0x00
+checkResult
 
 
 

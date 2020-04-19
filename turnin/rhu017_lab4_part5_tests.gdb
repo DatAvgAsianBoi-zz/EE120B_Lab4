@@ -49,7 +49,7 @@ setPINA 0x02
 continue 2
 
 expect button_press 3
-expect comb[2] 1
+expect comb[1] 1
 
 setPINA 0x00
 continue 2
